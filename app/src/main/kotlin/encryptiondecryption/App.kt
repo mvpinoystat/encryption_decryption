@@ -4,9 +4,13 @@
 package encryptiondecryption
 
 import java.io.*
-import kotlin.math.abs
 const val OFFSET = 1
 fun main(args: Array<String>) {
+    userInterface(args)
+}
+fun userInterface(args: Array<String>):String{
+    val error = "Error"
+
     //default values:
     val listAlgo = listOf("shift", "unicode")
     var alg = "shift"
@@ -25,7 +29,7 @@ fun main(args: Array<String>) {
 
                 if(givenAlgo !in listAlgo){
                     println("Error : Enter enc for encrypt and dec for decrypt.")
-                    return Unit
+                    return error
                 }
                 else{
                     alg = givenAlgo
@@ -33,7 +37,7 @@ fun main(args: Array<String>) {
 
             }catch (e:Exception){
                 println("Error : Default mode = enc is used.")
-                return Unit
+                return error
             }
 
         }
@@ -44,7 +48,7 @@ fun main(args: Array<String>) {
                 if(givenMode !in listMode)
                 {
                     println("Error : Enter enc for encrypt and dec for decrypt.")
-                    return Unit
+                    return error
                 }
                 else{
                     mode = givenMode
@@ -52,16 +56,19 @@ fun main(args: Array<String>) {
             }
             catch (e:Exception) {
                 println("Error : Default mode = enc is used.")
-                return Unit
+                return error
             }
         }
         if (args[i] == "-key") {
             try {
-                key = args[i+1].toInt()
+                val keyCandidate = args[i+1].toInt()
+                if(keyCandidate < 0)
+                    throw Exception("Error : Key should not be negative.")
+                else key = keyCandidate
             }
             catch (e:Exception) {
-                println("Error : Default mode = enc is used.")
-                return Unit
+                println("Error : $e .Default key = 0 is used.")
+                return error
             }
         }
         if (args[i] == "-data") {
@@ -70,7 +77,7 @@ fun main(args: Array<String>) {
             }
             catch (e:Exception) {
                 println("Error : Default data = empty is used.")
-                return Unit
+                return error
             }
         }
         if (args[i] == "-out"){
@@ -79,7 +86,7 @@ fun main(args: Array<String>) {
             }
             catch (e:Exception){
                 println("Error : Provide output file.")
-                return Unit
+                return error
             }
         }
 
@@ -136,7 +143,6 @@ fun main(args: Array<String>) {
         File(outfile).writeText(result)
     }
 
-
+    return result
 }
-
 

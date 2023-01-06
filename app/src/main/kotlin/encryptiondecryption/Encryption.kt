@@ -50,8 +50,8 @@ fun encryptWithKeyShift(msg:String, key:Int):String {
                  * Then we subtract 1 again after getting the remainder
                  */
 
-                var replacementCharIndex = codeSmallCaps.indexOf(ch) + keys + OFFSET
-                replacementCharIndex = (replacementCharIndex % codeSmallCaps.size) - OFFSET
+                var replacementCharIndex = codeSmallCaps.indexOf(ch) + keys
+                replacementCharIndex = (replacementCharIndex % codeSmallCaps.size)
                 encrypted += codeSmallCaps[replacementCharIndex]
             }
 
@@ -60,8 +60,8 @@ fun encryptWithKeyShift(msg:String, key:Int):String {
                  * Here, we add 1 since the index starts at 0.
                  * Then we subtract 1 again after getting the remainder
                  */
-                var replacementCharIndex = codeLargeCaps.indexOf(ch) + keys + OFFSET
-                replacementCharIndex = (replacementCharIndex % codeLargeCaps.size) - OFFSET
+                var replacementCharIndex = codeLargeCaps.indexOf(ch) + keys
+                replacementCharIndex = (replacementCharIndex % codeLargeCaps.size)
                 encrypted += codeLargeCaps[replacementCharIndex]
             }
             else -> {
